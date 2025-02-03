@@ -7,6 +7,11 @@ struct Point {
 #[derive(Debug)]
 enum Message {
     // TODO: Define the different variants used below.
+    Quit,                           // 无数据
+    Move(Point),                    // 包含一个 `Point` 结构体
+    Echo(String),                   // 包含一个字符串
+    ChangeColor(u8, u8, u8),        // 包含 3 个 `u8` 代表 RGB 颜色
+    Resize { width: u64, height: u64 }, // 具名结构体（结构体字段语法）
 }
 
 impl Message {

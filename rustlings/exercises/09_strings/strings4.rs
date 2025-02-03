@@ -13,25 +13,33 @@ fn string(arg: String) {
 // Your task is to replace `placeholder(…)` with either `string_slice(…)`
 // or `string(…)` depending on what you think each value is.
 fn main() {
-    placeholder("blue");
+    // &str 类型
+    string_slice("blue");
 
-    placeholder("red".to_string());
+    // String 类型
+    string("red".to_string());
 
-    placeholder(String::from("hi"));
+    // String 类型
+    string(String::from("hi"));
 
-    placeholder("rust is fun!".to_owned());
+    // String 类型
+    string("rust is fun!".to_owned());
 
-    placeholder("nice weather".into());
+    // String 类型
+    string("nice weather".into());
 
-    placeholder(format!("Interpolation {}", "Station"));
+    // String 类型
+    string(format!("Interpolation {}", "Station"));
 
-    // WARNING: This is byte indexing, not character indexing.
-    // Character indexing can be done using `s.chars().nth(INDEX)`.
-    placeholder(&String::from("abc")[0..1]);
+    // &str 类型
+    string_slice(&String::from("abc")[0..1]);
 
-    placeholder("  hello there ".trim());
+    // &str 类型
+    string_slice("  hello there ".trim());
 
-    placeholder("Happy Monday!".replace("Mon", "Tues"));
+    // String 类型
+    string("Happy Monday!".replace("Mon", "Tues"));
 
-    placeholder("mY sHiFt KeY iS sTiCkY".to_lowercase());
+    // String 类型
+    string("mY sHiFt KeY iS sTiCkY".to_lowercase());
 }
