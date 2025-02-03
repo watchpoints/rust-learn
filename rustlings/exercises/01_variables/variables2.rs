@@ -1,6 +1,7 @@
 fn main() {
     // TODO: Change the line below to fix the compiler error.
-    let x;
+    //在 Rust 中，所有变量在声明时必须被初始化。
+    let x = 10;
 
     if x == 10 {
         println!("x is ten!");

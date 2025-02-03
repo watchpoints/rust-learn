@@ -3,6 +3,8 @@ fn main() {
 
     // TODO: Destructure the `cat` tuple in one statement so that the println works.
     // let /* your pattern here */ = cat;
-
-    println!("{name} is {age} years old");
+    let (name,age)  = cat;
+    //println!("{name} is {age} years old");
+     // 正确地打印信息
+     println!("{} is {} years old", name, age);
 }
