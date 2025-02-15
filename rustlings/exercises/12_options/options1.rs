@@ -20,7 +20,7 @@ mod tests {
     fn raw_value() {
         // TODO: Fix this test. How do you get the value contained in the
         // Option?
-        let icecreams = maybe_icecream(12);
+        let icecreams: Option<u16> = maybe_icecream(12);
 
         assert_eq!(icecreams, Some(5)); // Don't change this line.
     }
