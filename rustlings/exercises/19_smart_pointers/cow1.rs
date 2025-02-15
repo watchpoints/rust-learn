@@ -33,37 +33,27 @@ mod tests {
     }
 
     #[test]
-    fn reference_no_mutation() {
-        // No clone occurs because `input` doesn't need to be mutated.
-        let vec = vec![0, 1, 2];
-        let mut input = Cow::from(&vec);
-        abs_all(&mut input);
-        // TODO: Replace `todo!()` with `Cow::Owned(_)` or `Cow::Borrowed(_)`.
-        assert!(matches!(input, todo!()));
-    }
+fn reference_no_mutation() {
+    let vec = vec![0, 1, 2];
+    let mut input = Cow::from(&vec);
+    abs_all(&mut input);
+    assert!(matches!(input, Cow::Borrowed(_)));  // ✅ 未修改，仍然是 Borrowed
+}
 
-    #[test]
-    fn owned_no_mutation() {
-        // We can also pass `vec` without `&` so `Cow` owns it directly. In this
-        // case, no mutation occurs (all numbers are already absolute) and thus
-        // also no clone. But the result is still owned because it was never
-        // borrowed or mutated.
-        let vec = vec![0, 1, 2];
-        let mut input = Cow::from(vec);
-        abs_all(&mut input);
-        // TODO: Replace `todo!()` with `Cow::Owned(_)` or `Cow::Borrowed(_)`.
-        assert!(matches!(input, todo!()));
-    }
+#[test]
+fn owned_no_mutation() {
+    let vec = vec![0, 1, 2];
+    let mut input = Cow::from(vec);
+    abs_all(&mut input);
+    assert!(matches!(input, Cow::Owned(_)));  // ✅ 已拥有，不变
+}
 
-    #[test]
-    fn owned_mutation() {
-        // Of course this is also the case if a mutation does occur (not all
-        // numbers are absolute). In this case, the call to `to_mut()` in the
-        // `abs_all` function returns a reference to the same data as before.
-        let vec = vec![-1, 0, 1];
-        let mut input = Cow::from(vec);
-        abs_all(&mut input);
-        // TODO: Replace `todo!()` with `Cow::Owned(_)` or `Cow::Borrowed(_)`.
-        assert!(matches!(input, todo!()));
-    }
+#[test]
+fn owned_mutation() {
+    let vec = vec![-1, 0, 1];
+    let mut input = Cow::from(vec);
+    abs_all(&mut input);
+    assert!(matches!(input, Cow::Owned(_)));  // ✅ 需要修改，仍然是 Owned
+}
+
 }

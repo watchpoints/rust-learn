@@ -1,35 +1,44 @@
 #[derive(Debug, PartialEq, Eq)]
 enum DivisionError {
-    // Example: 42 / 0
+    // 例如: 42 / 0
     DivideByZero,
-    // Only case for `i64`: `i64::MIN / -1` because the result is `i64::MAX + 1`
+    // `i64::MIN / -1` 是唯一的溢出情况，因为结果是 `i64::MAX + 1`
     IntegerOverflow,
-    // Example: 5 / 2 = 2.5
+    // 例如: 5 / 2 = 2.5 (不是整除)
     NotDivisible,
 }
 
-// TODO: Calculate `a` divided by `b` if `a` is evenly divisible by `b`.
-// Otherwise, return a suitable error.
+// 计算 `a` 除以 `b`，如果 `a` 可以被 `b` 整除，则返回 `Ok`，否则返回适当的错误。
 fn divide(a: i64, b: i64) -> Result<i64, DivisionError> {
-    todo!();
+    if b == 0 {
+        Err(DivisionError::DivideByZero)
+    } else if a == i64::MIN && b == -1 {
+        Err(DivisionError::IntegerOverflow)
+    } else if a % b != 0 {
+        Err(DivisionError::NotDivisible)
+    } else {
+        Ok(a / b)
+    }
 }
 
-// TODO: Add the correct return type and complete the function body.
-// Desired output: `Ok([1, 11, 1426, 3])`
-fn result_with_list() {
+// 返回 `Ok` 包含计算结果的数组
+fn result_with_list() -> Result<Vec<i64>, DivisionError> {
     let numbers = [27, 297, 38502, 81];
-    let division_results = numbers.into_iter().map(|n| divide(n, 27));
+    numbers
+        .into_iter()
+        .map(|n| divide(n, 27))
+        .collect() // `collect()` 会把 `Result` 解析成 `Result<Vec<_>, _>`
 }
 
-// TODO: Add the correct return type and complete the function body.
-// Desired output: `[Ok(1), Ok(11), Ok(1426), Ok(3)]`
-fn list_of_results() {
+// 返回 `Result` 类型的数组
+fn list_of_results() -> Vec<Result<i64, DivisionError>> {
     let numbers = [27, 297, 38502, 81];
-    let division_results = numbers.into_iter().map(|n| divide(n, 27));
+    numbers.into_iter().map(|n| divide(n, 27)).collect()
 }
 
 fn main() {
-    // You can optionally experiment here.
+    println!("{:?}", result_with_list()); // 应该返回 Ok([1, 11, 1426, 3])
+    println!("{:?}", list_of_results());  // 应该返回 [Ok(1), Ok(11), Ok(1426), Ok(3)]
 }
 
 #[cfg(test)]
